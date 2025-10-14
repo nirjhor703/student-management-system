@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\StudentController;
 use App\Http\Controllers\Api\SubjectController;
+use App\Http\Controllers\Api\TeacherController;
 
 use App\Models\Student;
 use App\Models\Teacher;
@@ -34,6 +35,18 @@ Route::controller(StudentController::class)->group(function(){
         Route::get('/edit/{id}', 'edit')->name('student.edit');
         Route::post('/update', 'update')->name('student.update');
         Route::get('/delete/{id}', 'delete')->name('student.delete');  
+    });
+});
+
+// teacher Routes
+Route::controller(TeacherController::class)->group(function(){
+    Route::prefix('/teacher')->group(function(){
+        Route::get('/', 'show')->name('teacher'); 
+        Route::get('/add', 'create')->name('teacher.create');
+        Route::post('/add', 'add')->name('teacher.store');
+        Route::get('/edit/{id}', 'edit')->name('teacher.edit');
+        Route::post('/update', 'update')->name('teacher.update');
+        Route::get('/delete/{id}', 'delete')->name('teacher.delete');  
     });
 });
 
