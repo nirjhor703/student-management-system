@@ -40,6 +40,7 @@
 <script src="{{ asset('js/ajax_setup.js') }}"></script>
 <script src="{{ asset('js/modal.js') }}"></script>
 <script src="{{ asset('js/student_ajax.js') }}"></script>
+<script src="{{ asset('js/subject_ajax.js') }}"></script>
 
 
 </body>
