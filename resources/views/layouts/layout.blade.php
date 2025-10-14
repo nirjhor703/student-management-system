@@ -17,8 +17,9 @@
 <body>
     <div class="body-wrapper">
         
-        @include('layouts.navbar')
         @include('layouts.header')
+        @include('layouts.navbar')
+        
 
         <main class="main-content">
             @yield('main-content')
@@ -41,6 +42,7 @@
 <script src="{{ asset('js/modal.js') }}"></script>
 <script src="{{ asset('js/student_ajax.js') }}"></script>
 <script src="{{ asset('js/subject_ajax.js') }}"></script>
+<script src="{{ asset('js/teacher_ajax.js') }}"></script>
 
 
 </body>

@@ -52,7 +52,6 @@ class StudentController extends Controller
     public function update(Request $req)
     {
         $req->validate([
-            'id'      => 'required|exists:students,id',
             'name'    => 'required|string|max:255',
             'email'   => 'required|email|unique:students,email,' . $req->id,
             'phone'   => 'required|string|max:20',

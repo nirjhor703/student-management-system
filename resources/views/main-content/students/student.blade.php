@@ -13,7 +13,7 @@
 @endif
 
 <table>
-    <caption>Student Table</caption>
+    <caption>Students Table</caption>
     <thead>
         <tr>
             <th>Sl</th>

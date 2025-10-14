@@ -22,9 +22,7 @@
             <select id="edit_teacher_id" name="teacher_id" required>
                 <option value="">Select Teacher</option>
                 @foreach($teachers as $teacher)
-                    <option value="{{ $teacher->id }}" {{ $subject->teacher_id == $teacher->id ? 'selected' : '' }}>
-                        {{ $teacher->name }}
-                    </option>
+                    <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
                 @endforeach
             </select>
             <span class="error" id="teacher_id_error"></span>

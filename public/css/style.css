@@ -1,51 +1,114 @@
-/* General Page Styling */
+/* ================== Reset & Base ================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #f9f9f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+
 }
 
-/* Page Header */
-.page-header {
+/* ================== Navbar ================== */
+nav {
+    background-color: #1a1a1a;
+    padding: 0px 0px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-radius: 5px;
+    text-align: center; /* center navbar items */
+}
+
+.navbar-container {
     display: flex;
-    justify-content: flex-end;
-    margin-bottom: 20px;
+    justify-content: center; /* center links horizontally */
+    gap: 100px; /* space between links */
+    color: #888;
+    font-size: larger;
 }
 
+.navbar-container a {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 16px; 
+    text-decoration: none; 
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-style: normal;
+}
+
+.navbar-container a:hover {
+    background-color: #4CAF50;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* ================== Page Header ================== */
+.page-header {
+    text-align: center; /* fully center the title and button */
+    margin: 40px 0 30px;
+}
+
+.page-header h1 {
+    font-size: 2.5em; /* larger header */
+    margin-bottom: 25px;
+    color: #1a1a1a;
+}
+
+/* Add Button */
 .page-header button {
-    padding: 8px 16px;
+    padding: 14px 30px; /* bigger button */
+    font-size: 1.1em;
     background-color: #4CAF50;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .page-header button:hover {
     background-color: #45a049;
+    transform: scale(1.05);
 }
 
-/* Table Styling */
+/* ================== Table Styling ================== */
 table {
     width: 100%;
     border-collapse: collapse;
     background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 table caption {
-    font-size: 1.2em;
-    margin-bottom: 10px;
+    font-size: 20px;
+    margin: 20px 0;
     font-weight: bold;
+    text-align: center; /* center titles */
+    color: #1a1a1a;
 }
 
 table th, table td {
     border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+    padding: 14px;
+    text-align: center; /* center content */
 }
 
 table th {
     background-color: #f2f2f2;
+    font-weight: 600;
 }
 
 table tr:nth-child(even){
@@ -53,15 +116,16 @@ table tr:nth-child(even){
 }
 
 table tr:hover {
-    background-color: #f1f1f1;
+    background-color: #e8f5e9;
 }
 
-/* Buttons in Table */
+/* ================== Buttons in Table ================== */
 button.edit-btn, button.delete-btn {
-    padding: 4px 8px;
+    padding: 6px 12px;
     border: none;
     border-radius: 3px;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 button.edit-btn {
@@ -71,6 +135,7 @@ button.edit-btn {
 
 button.edit-btn:hover {
     background-color: #1976D2;
+    transform: scale(1.05);
 }
 
 button.delete-btn {
@@ -80,18 +145,21 @@ button.delete-btn {
 
 button.delete-btn:hover {
     background-color: #d32f2f;
+    transform: scale(1.05);
 }
 
-/* Success Message */
+/* ================== Success Message ================== */
 .success-message {
-    padding: 10px;
-    margin-bottom: 15px;
+    padding: 15px 25px;
+    margin-bottom: 20px;
     background-color: #4CAF50;
     color: white;
-    border-radius: 4px;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
 }
 
-/* Modals */
+/* ================== Modals ================== */
 .modal-container {
     display: none;
     position: fixed;
@@ -108,52 +176,95 @@ button.delete-btn:hover {
 
 .modal-content {
     background-color: #fff;
-    padding: 20px 30px;
-    border-radius: 5px;
-    width: 400px;
+    padding: 30px 40px;
+    border-radius: 8px;
+    width: 450px;
+    max-width: 90%;
     position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation: fadeIn 0.3s ease;
 }
 
 .modal-content h2 {
     margin-top: 0;
+    font-size: 1.8em;
+    color: #1a1a1a;
+    text-align: center;
 }
 
 .modal-content label {
     display: block;
-    margin: 10px 0 5px;
+    margin: 12px 0 6px;
+    font-weight: 500;
 }
 
 .modal-content input,
 .modal-content select,
 .modal-content textarea {
     width: 100%;
-    padding: 6px;
-    margin-bottom: 5px;
-    border-radius: 3px;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 4px;
     border: 1px solid #ccc;
     box-sizing: border-box;
+    transition: border 0.3s ease;
+}
+
+.modal-content input:focus,
+.modal-content select:focus,
+.modal-content textarea:focus {
+    border-color: #4CAF50;
+    outline: none;
 }
 
 .modal-content button {
-    margin-top: 10px;
-    padding: 8px 16px;
+    margin-top: 12px;
+    padding: 12px 30px;
     background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .modal-content button:hover {
     background-color: #45a049;
+    transform: scale(1.05);
 }
 
-/* Close Button */
+/* ================== Close Button ================== */
 .close-modal {
     position: absolute;
-    right: 12px;
-    top: 12px;
-    font-size: 20px;
+    right: 15px;
+    top: 15px;
+    font-size: 22px;
     font-weight: bold;
     cursor: pointer;
+    color: #888;
+    transition: color 0.3s ease;
+}
+
+.close-modal:hover {
+    color: #000;
+}
+
+/* ================== Animations ================== */
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(-20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+
+footer{
+    text-align: center;
+}
+
+header{
+    text-align: center;
+    padding: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }

@@ -26,14 +26,12 @@ class TeacherController extends Controller
             'name'    => 'required|string|max:255',
             'email'   => 'required|email|unique:teachers,email',
             'phone'   => 'required|string|max:20',
-            
         ]);
 
         Teacher::create([
             'name'    => $req->name,
             'email'   => $req->email,
             'phone'   => $req->phone,
-           
         ]);
 
         return 'Successfully Added';
@@ -42,7 +40,7 @@ class TeacherController extends Controller
     // Fetch teacher for edit (AJAX)
     public function edit($id)
     {
-        $teachers = Teacher::findOrFail($id);
+        $teacher = Teacher::findOrFail($id);
         return response()->json(['teacher' => $teacher]);
     }
 
