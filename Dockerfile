@@ -3,7 +3,7 @@ FROM php:8.3-apache
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    git curl zip unzip libpng-dev libonig-dev libxml2-dev libzip-dev && \
+    git curl zip unzip libpng-dev libonig-dev libxml2-dev libzip-dev npm && \
     docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
 # Enable Apache mod_rewrite
@@ -26,6 +26,9 @@ RUN npm install && npm run build || true
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Point Apache to Laravel public folder
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
 
 # Expose port
 EXPOSE 80
