@@ -76,7 +76,9 @@ class SubjectController extends Controller
     // Delete subject
     public function delete($id)
     {
-        Subject::findOrFail($id)->delete();
-        return redirect()->route('subject')->with('success', 'Subject deleted successfully.');
+        $item = Subject::findOrFail($id); // Change ClassModel accordingly
+        $item->delete();
+
+        return response()->json(['message' => 'Deleted successfully']);
     }
 }

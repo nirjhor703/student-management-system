@@ -4,5 +4,6 @@
         <a href="{{ url('/student') }}">Students</a>
         <a href="{{ url('/teacher') }}">Teachers</a>
         <a href="{{ url('/subject') }}">Subjects</a>
+        <a href="{{ url('/class') }}">Classes</a>
     </div>
 </nav>

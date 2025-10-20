@@ -34,9 +34,9 @@
                     <button class="edit-btn" data-id="{{ $teacher->id }}">Edit</button>
                 </td>
                 <td>
-                    <a href="{{ route('teacher.delete', $teacher->id) }}" onclick="return confirm('Are you sure you want to delete this teacher?');">
-                        <button class="delete-btn">Delete</button>
-                    </a>
+                    <button class="delete-btn" data-id="{{ $teacher->id }}" data-url="{{ route('teacher.delete', $teacher->id) }}">
+                        Delete
+                    </button>
                 </td>
             </tr>
         @empty

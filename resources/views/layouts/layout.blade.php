@@ -43,6 +43,7 @@
 <script src="{{ asset('js/student_ajax.js') }}"></script>
 <script src="{{ asset('js/subject_ajax.js') }}"></script>
 <script src="{{ asset('js/teacher_ajax.js') }}"></script>
+<script src="{{ asset('js/class_ajax.js') }}"></script>
 
 
 </body>

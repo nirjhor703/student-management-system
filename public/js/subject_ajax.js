@@ -83,18 +83,27 @@ $(document).ready(function () {
         });
     });
 
-    // ✅ Close modal when clicking outside
-    $(window).on('click', function (e) {
-        if ($(e.target).hasClass('modal-container')) {
-            $('.modal-container').hide();
-        }
-    });
 
-
-    // ✅ Dynamically clear error on input change
-    $('#editMovieForm input, #editMovieForm select').on('input change', function () {
-        let fieldId = $(this).attr('id').replace('edit_', '');
-        $('#edit_' + fieldId + '_error').text('');
+    $(document).off('click', '.delete-btn').on('click', '.delete-btn', function(e) {
+        e.preventDefault();
+    
+        let btn = $(this);
+        let url = btn.data('url');
+    
+        if (!confirm('Are you sure you want to delete this item?')) return;
+    
+        $.ajax({
+            url: url,
+            method: 'GET', // match your route
+            success: function (response) {
+                alert(response.message);
+                location.reload();
+            },
+            error: function (xhr) {
+                console.error(xhr.responseText);
+                alert('Failed to delete. Check console.');
+            }
+        });
     });
 
     // ✅ Close modal when clicking outside

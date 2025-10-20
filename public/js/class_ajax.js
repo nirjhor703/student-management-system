@@ -1,21 +1,24 @@
-$('#addTeacherForm').submit(function (e) {
+
+// ✅ Add Class
+$('#addClassForm').submit(function (e) {
     e.preventDefault();
 
     let formData = {
-        name: $('#name').val(),
-        email: $('#email').val(),
-        phone: $('#phone').val(),
+        class_name: $('#class_name').val(),
+        teacher_id: $('#teacher_id').val(),
+        subject_id: $('#subject_id').val(),
+        students: $('#students').val(), // multiple selected students
         _token: $('meta[name="csrf-token"]').attr('content'),
     };
 
     $.ajax({
-        url: '/teacher/add',
+        url: '/class/add',
         method: 'POST',
         data: formData,
         success: function (response) {
             alert(response);
-            $('#addTeacherForm')[0].reset();
-            $('#addTeacherModal').hide();
+            $('#addClassForm')[0].reset();
+            $('#addClassModal').hide();
             location.reload();
         },
         error: function (response) {
@@ -31,45 +34,45 @@ $('#addTeacherForm').submit(function (e) {
 });
 
 
-
 $(document).ready(function () {
 
-    // ✅ Open Edit Modal and Load teacher Data
+    // ✅ Open Edit Modal and Load Class Data
     $(document).on('click', '.edit-btn', function (e) {
         e.preventDefault();
-        let teacherId = $(this).data('id');
+        let classId = $(this).data('id');
 
-        $.get('/teacher/edit/' + teacherId, function (data) {
-            $('#edit_id').val(data.teacher.id);
-            $('#edit_name').val(data.teacher.name);
-            $('#edit_email').val(data.teacher.email);
-            $('#edit_phone').val(data.teacher.phone);
-            
+        $.get('/class/edit/' + classId, function (data) {
+            $('#edit_id').val(data.class.id);
+            $('#edit_class_name').val(data.class.class_name);
+            $('#edit_teacher_id').val(data.class.teacher_id);
+            $('#edit_subject_id').val(data.class.subject_id);
+            $('#edit_students').val(data.class.students.map(s => s.id)); // pre-select students
 
-            $('#editTeacherModal').css('display', 'flex');
+            $('#editClassModal').css('display', 'flex');
         });
     });
 
     // ✅ Submit Update Form
-    $('#editTeacherForm').submit(function (e) {
+    $('#editClassForm').submit(function (e) {
         e.preventDefault();
 
         let formData = {
             id: $('#edit_id').val(),
-            name: $('#edit_name').val(),
-            email: $('#edit_email').val(),
-            phone: $('#edit_phone').val(),
+            class_name: $('#edit_class_name').val(),
+            teacher_id: $('#edit_teacher_id').val(),
+            subject_id: $('#edit_subject_id').val(),
+            students: $('#edit_students').val(),
             _token: $('meta[name="csrf-token"]').attr('content'),
         };
 
         $.ajax({
-            url: '/teacher/update',
+            url: '/class/update',
             method: 'POST',
             data: formData,
             success: function (response) {
                 alert(response);
-                $('#editTeacherForm')[0].reset();
-                $('#editTeacherModal').hide();
+                $('#editClassForm')[0].reset();
+                $('#editClassModal').hide();
                 location.reload();
             },
             error: function (response) {
@@ -83,8 +86,7 @@ $(document).ready(function () {
             }
         });
     });
-
-
+  
     $(document).off('click', '.delete-btn').on('click', '.delete-btn', function(e) {
         e.preventDefault();
     
@@ -106,6 +108,10 @@ $(document).ready(function () {
             }
         });
     });
+    
+    
+    
+
 
     // ✅ Close modal when clicking outside
     $(window).on('click', function (e) {
@@ -114,5 +120,10 @@ $(document).ready(function () {
         }
     });
 
+    // ✅ Clear errors dynamically
+    $('#editClassForm input, #editClassForm select').on('input change', function () {
+        let fieldId = $(this).attr('id').replace('edit_', '');
+        $('#edit_' + fieldId + '_error').text('');
+    });
 
 });

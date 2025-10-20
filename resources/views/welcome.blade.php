@@ -25,6 +25,12 @@
             <h2>{{ $subjectCount }}</h2>
             <p>Total Subjects</p>
         </div>
+
+        <div class="card class-card">
+            <i class="fa-solid fa-graduation-cap icon"></i>
+            <h2>{{ $classCount }}</h2>
+            <p>Total Classes</p>
+        </div>
     </div>
 
 </div>
@@ -80,7 +86,7 @@
 
     .card p {
         font-size: 1rem;
-        color: #555;
+        color: #000000;
         font-weight: 500;
     }
 
@@ -101,6 +107,11 @@
 
     .subject-card {
         background: linear-gradient(135deg, #fa709a, #fee140);
+        color: #fff;
+    }
+
+    .class-card {
+        background: linear-gradient(135deg, #003043, #8074e4);
         color: #fff;
     }
 

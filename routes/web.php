@@ -4,17 +4,20 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\StudentController;
 use App\Http\Controllers\Api\SubjectController;
 use App\Http\Controllers\Api\TeacherController;
+use App\Http\Controllers\Api\ClassController;
 
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\Subject;
+use App\Models\ClassModel;
 
 Route::get('/', function () {
     $studentCount = Student::count();
     $teacherCount = Teacher::count();
     $subjectCount = Subject::count();
+    $classCount = ClassModel::count();
 
-    return view('welcome', compact('studentCount', 'teacherCount', 'subjectCount'));
+    return view('welcome', compact('studentCount', 'teacherCount', 'subjectCount', 'classCount'));
 });
 
 
@@ -59,5 +62,18 @@ Route::controller(SubjectController::class)->group(function(){
         Route::get('/edit/{id}', 'edit')->name('subject.edit');
         Route::post('/update', 'update')->name('subject.update');
         Route::get('/delete/{id}', 'delete')->name('subject.delete');  
+    });
+});
+
+
+// Class Routes
+Route::controller(ClassController::class)->group(function(){
+    Route::prefix('/class')->group(function(){
+        Route::get('/', 'show')->name('class'); 
+        Route::get('/add', 'create')->name('class.create');
+        Route::post('/add', 'add')->name('class.store');
+        Route::get('/edit/{id}', 'edit')->name('class.edit');
+        Route::post('/update', 'update')->name('class.update');
+        Route::get('/delete/{id}', 'delete')->name('class.delete');  
     });
 });

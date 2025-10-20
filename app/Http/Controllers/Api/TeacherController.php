@@ -65,8 +65,11 @@ class TeacherController extends Controller
     }
 
     // Delete teacher
-    public function delete($id){
-        Teacher::findOrFail($id)->delete();
-        return redirect()->route('teacher')->with('success', 'Teacher deleted successfully.');
+    public function delete($id)
+    {
+        $item = Teacher::findOrFail($id); // Change ClassModel accordingly
+        $item->delete();
+
+        return response()->json(['message' => 'Deleted successfully']);
     }
 }
