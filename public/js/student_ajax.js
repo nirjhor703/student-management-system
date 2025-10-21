@@ -1,21 +1,23 @@
-$('#addClassForm').submit(function (e) {
+$('#addStudentForm').submit(function (e) {
     e.preventDefault();
 
     let formData = {
-        class_name: $('#class_name').val(),
-        teacher_id: $('#teacher_id').val(),
-        subject_id: $('#subject_id').val(),
+        name: $('#name').val(),
+        email: $('#email').val(),
+        phone: $('#phone').val(),
+        address: $('#address').val(),
+        status: $('#status').val(),
         _token: $('meta[name="csrf-token"]').attr('content'),
     };
 
     $.ajax({
-        url: '/class/add',
+        url: '/student/add',
         method: 'POST',
         data: formData,
         success: function (response) {
             alert(response);
-            $('#addClassForm')[0].reset();
-            $('#addClassModal').hide();
+            $('#addStudentForm')[0].reset();
+            $('#addStudentModal').hide();
             location.reload();
         },
         error: function (response) {
@@ -34,41 +36,45 @@ $('#addClassForm').submit(function (e) {
 
 $(document).ready(function () {
 
-    // ✅ Open Edit Modal and Load Class Data
+    // ✅ Open Edit Modal and Load Student Data
     $(document).on('click', '.edit-btn', function (e) {
         e.preventDefault();
-        let classId = $(this).data('id');
+        let studentId = $(this).data('id');
 
-        $.get('/class/edit/' + classId, function (data) {
-            $('#edit_id').val(data.class.id);
-            $('#edit_class_name').val(data.class.class_name);
-            $('#edit_teacher_id').val(data.class.teacher_id);
-            $('#edit_subject_id').val(data.class.subject_id);
+        $.get('/student/edit/' + studentId, function (data) {
+            $('#edit_id').val(data.student.id);
+            $('#edit_name').val(data.student.name);
+            $('#edit_email').val(data.student.email);
+            $('#edit_phone').val(data.student.phone);
+            $('#edit_address').val(data.student.address);
+            $('#edit_status').val(data.student.status);
 
-            $('#editClassModal').css('display', 'flex');
+            $('#editStudentModal').css('display', 'flex');
         });
     });
 
     // ✅ Submit Update Form
-    $('#editClassForm').submit(function (e) {
+    $('#editStudentForm').submit(function (e) {
         e.preventDefault();
 
         let formData = {
             id: $('#edit_id').val(),
-            class_name: $('#edit_class_name').val(),
-            teacher_id: $('#edit_teacher_id').val(),
-            subject_id: $('#edit_subject_id').val(),
+            name: $('#edit_name').val(),
+            email: $('#edit_email').val(),
+            phone: $('#edit_phone').val(),
+            address: $('#edit_address').val(),
+            status: $('#edit_status').val(),
             _token: $('meta[name="csrf-token"]').attr('content'),
         };
 
         $.ajax({
-            url: '/class/update',
+            url: '/student/update',
             method: 'POST',
             data: formData,
             success: function (response) {
                 alert(response);
-                $('#editClassForm')[0].reset();
-                $('#editClassModal').hide();
+                $('#editStudentForm')[0].reset();
+                $('#editStudentModal').hide();
                 location.reload();
             },
             error: function (response) {
@@ -83,29 +89,6 @@ $(document).ready(function () {
         });
     });
 
-    // ✅ Delete Class
-    $(document).off('click', '.delete-btn').on('click', '.delete-btn', function(e) {
-        e.preventDefault();
-    
-        let btn = $(this);
-        let url = btn.data('url');
-    
-        if (!confirm('Are you sure you want to delete this item?')) return;
-    
-        $.ajax({
-            url: url,
-            method: 'GET', // match your route
-            success: function (response) {
-                alert(response.message);
-                location.reload();
-            },
-            error: function (xhr) {
-                console.error(xhr.responseText);
-                alert('Failed to delete. Check console.');
-            }
-        });
-    });
-
     // ✅ Close modal when clicking outside
     $(window).on('click', function (e) {
         if ($(e.target).hasClass('modal-container')) {
@@ -113,10 +96,18 @@ $(document).ready(function () {
         }
     });
 
-    // ✅ Clear error dynamically
-    $('#editClassForm input, #editClassForm select').on('input change', function () {
+
+    // ✅ Dynamically clear error on input change
+    $('#editMovieForm input, #editMovieForm select').on('input change', function () {
         let fieldId = $(this).attr('id').replace('edit_', '');
         $('#edit_' + fieldId + '_error').text('');
+    });
+
+    // ✅ Close modal when clicking outside
+    $(window).on('click', function (e) {
+        if ($(e.target).hasClass('modal-container')) {
+            $('.modal-container').hide();
+        }
     });
 
 });
