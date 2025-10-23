@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\StudentController;
 use App\Http\Controllers\Api\SubjectController;
 use App\Http\Controllers\Api\TeacherController;
@@ -11,6 +12,9 @@ use App\Models\Teacher;
 use App\Models\Subject;
 use App\Models\ClassModel;
 
+// ------------------------------------
+// 🏠 Default Dashboard (Welcome Page)
+// ------------------------------------
 Route::get('/', function () {
     $studentCount = Student::count();
     $teacherCount = Teacher::count();
@@ -18,20 +22,29 @@ Route::get('/', function () {
     $classCount = ClassModel::count();
 
     return view('welcome', compact('studentCount', 'teacherCount', 'subjectCount', 'classCount'));
+})->middleware('auth')->name('dashboard');
+
+// ------------------------------------
+// ⚙️ Auth Routes
+// ------------------------------------
+Route::controller(AuthController::class)->group(function() {
+    Route::get('/register', 'showRegister')->name('register');
+    Route::post('/register', 'register')->name('register.post');
+    Route::get('/login', 'showLogin')->name('login')->middleware('guest');
+    Route::post('/login', 'login')->name('login.post');
+    Route::get('/logout', 'logout')->name('logout')->middleware('auth');
 });
 
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/login');
+})->name('logout');
 
-Route::get('/welcome', function () {
-    return view('welcome');
-});
-
-Route::get('/layout', function () {
-    return view('layouts.layout');
-});
-
-// Student Routes
+// ------------------------------------
+// 👩‍🎓 Student Routes
+// ------------------------------------
 Route::controller(StudentController::class)->group(function(){
-    Route::prefix('/student')->group(function(){
+    Route::prefix('/student')->middleware('auth')->group(function(){
         Route::get('/', 'show')->name('student'); 
         Route::get('/add', 'create')->name('student.create');
         Route::post('/add', 'add')->name('student.store');
@@ -41,9 +54,11 @@ Route::controller(StudentController::class)->group(function(){
     });
 });
 
-// teacher Routes
+// ------------------------------------
+// 👨‍🏫 Teacher Routes
+// ------------------------------------
 Route::controller(TeacherController::class)->group(function(){
-    Route::prefix('/teacher')->group(function(){
+    Route::prefix('/teacher')->middleware('auth')->group(function(){
         Route::get('/', 'show')->name('teacher'); 
         Route::get('/add', 'create')->name('teacher.create');
         Route::post('/add', 'add')->name('teacher.store');
@@ -53,9 +68,11 @@ Route::controller(TeacherController::class)->group(function(){
     });
 });
 
-// Subject Routes
+// ------------------------------------
+// 📚 Subject Routes
+// ------------------------------------
 Route::controller(SubjectController::class)->group(function(){
-    Route::prefix('/subject')->group(function(){
+    Route::prefix('/subject')->middleware('auth')->group(function(){
         Route::get('/', 'show')->name('subject'); 
         Route::get('/add', 'create')->name('subject.create');
         Route::post('/add', 'add')->name('subject.store');
@@ -65,10 +82,11 @@ Route::controller(SubjectController::class)->group(function(){
     });
 });
 
-
-// Class Routes
+// ------------------------------------
+// 🏫 Class Routes
+// ------------------------------------
 Route::controller(ClassController::class)->group(function(){
-    Route::prefix('/class')->group(function(){
+    Route::prefix('/class')->middleware('auth')->group(function(){
         Route::get('/', 'show')->name('class'); 
         Route::get('/add', 'create')->name('class.create');
         Route::post('/add', 'add')->name('class.store');
