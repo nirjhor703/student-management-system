@@ -362,3 +362,29 @@ header{
     margin-bottom: 10px;
 }
 
+
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 40px; /* space for eye icon */
+}
+
+.password-container i {
+    position: absolute;
+    right: 10px;
+    top: 35%;
+    transform: translateY(-50%);
+    color: #888;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.password-container i:hover {
+    color: #4CAF50;
+}
+
+

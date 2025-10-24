@@ -21,27 +21,37 @@
         </a>
 
         @auth
-            <form action="{{ route('logout') }}" method="GET" style="display: inline;">
-                <button type="submit" class="logout-btn" style="
-                    background: none;
-                    border: none;
-                    color: #ffffff;
-                    font-weight: 600;
-                    font-size: 16px;
-                    padding: 10px 15px;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                ">
-                    <i class="fa-solid fa-right-from-bracket"></i> Logout
-                </button>
-            </form>
-        @endauth
+    <form id="logoutForm" action="{{ route('logout') }}" method="GET" style="display: inline;">
+        <button type="button" class="logout-btn" style="
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        ">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
+    </form>
 
-        @guest
-            <a href="{{ route('login') }}">
-                <i class="fa-solid fa-right-to-bracket"></i> Login
-            </a>
-        @endguest
+    <script>
+        document.querySelector('.logout-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (confirm('Are you sure you want to logout?')) {
+                document.getElementById('logoutForm').submit();
+            }
+        });
+    </script>
+@endauth
+
+@guest
+    <a href="{{ route('login') }}">
+        <i class="fa-solid fa-right-to-bracket"></i> Login
+    </a>
+@endguest
+
     </div>
 </nav>
